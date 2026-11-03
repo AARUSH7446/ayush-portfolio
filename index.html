@@ -91,16 +91,34 @@
             padding: 20px;
         }
 
-        .name-title {
-            font-size: 4rem;
-            font-weight: 800;
-            background: linear-gradient(90deg, #d4af37, #00ffcc, #ffffff);
-            background-size: 200% auto;
-            color: transparent;
-            -webkit-background-clip: text;
-            background-clip: text;
-            animation: nameGradient 4s linear infinite;
-            margin-bottom: 10px;
+       @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap');
+
+.name-title {
+    font-size: 6.5rem; /* Size 4rem se badhakar 6.5rem kar diya */
+    font-family: 'Montserrat', sans-serif; /* Naya premium font */
+    font-weight: 800;
+    background: linear-gradient(90deg, #d4af37, #00ffcc, #ffffff, #d4af37);
+    background-size: 300% auto;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    /* Niche wala code animation ke liye hai */
+    animation: textGlowPulse 3s ease-in-out infinite alternate; 
+}
+
+/* Animation ka effect (Ise .name-title ke theek niche rehne dena) */
+@keyframes textGlowPulse {
+    0% {
+        background-position: 0% 50%;
+        transform: scale(1);
+        text-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
+    }
+    100% {
+        background-position: 100% 50%;
+        transform: scale(1.05); /* Halka sa zoom in hoga */
+        text-shadow: 0 0 30px rgba(0, 255, 204, 0.7); /* Mast glow karega */
+    }
+
         }
 
         .subtitle {
