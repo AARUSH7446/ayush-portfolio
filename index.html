@@ -310,6 +310,47 @@
             .name-title { font-size: 2.5rem; }
             .contact-grid { grid-template-columns: 1fr; }
         }
+        /* Custom Cursor CSS (Sirf Desktop ke liye) */
+@media (min-width: 768px) {
+    body, a, button, .btn {
+        cursor: none !important; /* Normal mouse chhupane ke liye */
+    }
+    
+    .cursor-dot {
+        width: 8px;
+        height: 8px;
+        background-color: #3df2b9;
+        border-radius: 50%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        transform: translate(-50%, -50%);
+        z-index: 9999;
+        pointer-events: none;
+        box-shadow: 0 0 10px #3df2b9, 0 0 20px #3df2b9;
+    }
+    
+    .cursor-outline {
+        width: 40px;
+        height: 40px;
+        border: 2px solid rgba(61, 242, 185, 0.7);
+        border-radius: 50%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        transform: translate(-50%, -50%);
+        z-index: 9998;
+        pointer-events: none;
+        box-shadow: 0 0 20px rgba(61, 242, 185, 0.4);
+        transition: left 0.15s ease-out, top 0.15s ease-out;
+    }
+}
+/* Mobile par isko hide karne ke liye */
+@media (max-width: 767px) {
+    .cursor-dot, .cursor-outline {
+        display: none; 
+    }
+}
     </style>
 </head>
 <body>
@@ -540,6 +581,27 @@
         backgroundColor: 0x070b14
       })
     }
+  });
+</script>
+    <!-- Custom Glowing Cursor -->
+<div class="cursor-dot"></div>
+<div class="cursor-outline"></div>
+    <!-- Custom Cursor Script -->
+<script>
+  const cursorDot = document.querySelector(".cursor-dot");
+  const cursorOutline = document.querySelector(".cursor-outline");
+
+  window.addEventListener("mousemove", function (e) {
+    const posX = e.clientX;
+    const posY = e.clientY;
+
+    // Dot turant mouse ke sath chalega
+    cursorDot.style.left = `${posX}px`;
+    cursorDot.style.top = `${posY}px`;
+
+    // Outline thoda smoothly pichhe aayega
+    cursorOutline.style.left = `${posX}px`;
+    cursorOutline.style.top = `${posY}px`;
   });
 </script>
 </body>
