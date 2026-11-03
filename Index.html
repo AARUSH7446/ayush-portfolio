@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayush Soni | Accounts Executive</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: #050a15;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* --- Background Video --- */
+        .video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            overflow: hidden;
+            background: #050a15;
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.4; /* Darken video for text readability */
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(5,10,21,0.9) 0%, rgba(5,10,21,0.6) 100%);
+            z-index: -1;
+        }
+
+        /* --- Scroll Reveal Classes --- */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Animations --- */
+        @keyframes floatPulse {
+            0% { transform: translateY(0px); box-shadow: 0 5px 15px rgba(0, 255, 204, 0.1); }
+            50% { transform: translateY(-8px); box-shadow: 0 15px 25px rgba(0, 255, 204, 0.3); }
+            100% { transform: translateY(0px); box-shadow: 0 5px 15px rgba(0, 255, 204, 0.1); }
+        }
+
+        @keyframes glowPulse {
+            0% { box-shadow: 0 0 10px rgba(0, 255, 204, 0.1); }
+            50% { box-shadow: 0 0 25px rgba(0, 255, 204, 0.4); }
+            100% { box-shadow: 0 0 10px rgba(0, 255, 204, 0.1); }
+        }
+
+        @keyframes nameGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- Layout & Sections --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .name-title {
+            font-size: 4rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #d4af37, #00ffcc, #ffffff);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: nameGradient 4s linear infinite;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            letter-spacing: 4px;
+            color: #b0c4de;
+            text-transform: uppercase;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            font-size: 0.9rem;
+            color: #00ffcc;
+            letter-spacing: 2px;
+            animation: floatPulse 2s infinite ease-in-out;
+        }
+
+        .section {
+            padding: 80px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: #00ffcc;
+            margin-bottom: 40px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        /* --- Premium Glassmorphism Cards --- */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 255, 204, 0.2);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .glass-card.animated-float {
+            animation: floatPulse 4s infinite ease-in-out;
+        }
+
+        .glass-card.animated-glow {
+            animation: glowPulse 3s infinite ease-in-out;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            color: #d4af37;
+        }
+
+        .card-date {
+            font-size: 0.9rem;
+            color: #00ffcc;
+            background: rgba(0, 255, 204, 0.1);
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        ul li {
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+
+        ul li::before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: #00ffcc;
+            font-size: 1.2rem;
+        }
+
+        /* --- Pills for Skills --- */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .skill-pill {
+            background: rgba(0, 255, 204, 0.05);
+            border: 1px solid rgba(0, 255, 204, 0.3);
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            animation: floatPulse 3s infinite ease-in-out;
+        }
+
+        /* --- Contact Form & Buttons --- */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .contact-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 15px;
+            text-align: center;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: 0.3s;
+            z-index: 20;
+            position: relative;
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-call {
+            background: #00ffcc;
+            color: #050a15;
+            box-shadow: 0 5px 15px rgba(0, 255, 204, 0.3);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: #fff;
+            font-family: inherit;
+            outline: none;
+        }
+
+        .form-control:focus {
+            border-color: #00ffcc;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: transparent;
+            border: 2px solid #d4af37;
+            color: #d4af37;
+            font-weight: bold;
+            font-size: 1.1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            z-index: 20;
+            position: relative;
+        }
+
+        .submit-btn:hover {
+            background: #d4af37;
+            color: #050a15;
+        }
+
+        @media (max-width: 768px) {
+            .name-title { font-size: 2.5rem; }
+            .contact-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Video Background -->
+    <div class="video-container">
+        <!-- Using a reliable CDN tech video that works well on all devices -->
+        <video autoplay muted loop playsinline webkit-playsinline>
+            <source src="https://cdn.pixabay.com/video/2020/02/20/32574-392942008_large.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="overlay"></div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1 class="name-title">Ayush Soni</h1>
+        <p class="subtitle">Accounts & Audit Executive</p>
+        <div class="scroll-indicator">SCROLL TO EXPLORE ↓</div>
+    </section>
+
+    <!-- Professional Summary -->
+    <section class="section">
+        <div class="reveal-on-scroll">
+            <div class="glass-card">
+                <p style="line-height: 1.8; color: #e2e8f0; font-size: 1.1rem;">
+                    Results-driven Account Executive with substantial experience in taxation, reconciliation, and stock audits. Currently a 7th-semester Law student at CCSU, providing a unique combination of legal insight and financial expertise. Proficient in GSTR-1/3B/9 filings, TDS returns, and conducting independent outstation audits with high operational efficiency.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Strengths & Core Skills -->
+    <section class="section">
+        <h2 class="section-title reveal-on-scroll">Core Strengths</h2>
+        <div class="skills-container reveal-on-scroll">
+            <div class="skill-pill">Taxation & Compliance</div>
+            <div class="skill-pill" style="animation-delay: 0.2s;">GST (GSTR-1, 3B, 9)</div>
+            <div class="skill-pill" style="animation-delay: 0.4s;">TDS Return Filing</div>
+            <div class="skill-pill" style="animation-delay: 0.1s;">Outstation Stock Audit</div>
+            <div class="skill-pill" style="animation-delay: 0.3s;">Bank Reconciliation (BRS)</div>
+            <div class="skill-pill" style="animation-delay: 0.5s;">Tally Prime</div>
+            <div class="skill-pill" style="animation-delay: 0.2s;">Advanced MS Excel</div>
+            <div class="skill-pill" style="animation-delay: 0.4s;">Client Management</div>
+        </div>
+    </section>
+
+    <!-- Key Projects -->
+    <section class="section">
+        <h2 class="section-title reveal-on-scroll">Key Projects</h2>
+        
+        <div class="reveal-on-scroll">
+            <div class="glass-card animated-float">
+                <div class="card-header">
+                    <h3 class="card-title">Outstation Stock Audit</h3>
+                    <span class="card-date">Jamshedpur</span>
+                </div>
+                <ul>
+                    <li>Conducted comprehensive physical inventory verification for large-scale warehouse operations.</li>
+                    <li>Identified inventory leakages and reconciled complex ledger discrepancies on-site.</li>
+                    <li>Delivered final audit reports directly to senior management, ensuring 100% stock accuracy.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="reveal-on-scroll">
+            <div class="glass-card animated-float" style="animation-delay: 0.5s;">
+                <div class="card-header">
+                    <h3 class="card-title">Chicco Brand Stock Audit</h3>
+                    <span class="card-date">Gurgaon</span>
+                </div>
+                <ul>
+                    <li>Executed end-to-end stock audit for the premium baby care brand "Chicco".</li>
+                    <li>Managed extensive daily accounting entries and audit-ready documentation during the physical check.</li>
+                    <li>Cross-verified physical stock with ERP systems to finalize the audit assessment.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience -->
+    <section class="section">
+        <h2 class="section-title reveal-on-scroll">Experience</h2>
+        
+        <div class="reveal-on-scroll">
+            <div class="glass-card">
+                <div class="card-header">
+                    <h3 class="card-title">Account Executive <br><span style="font-size: 1rem; color: #fff;">Gupta Vibhor & Associates</span></h3>
+                    <span class="card-date">Jul 2024 – Present</span>
+                </div>
+                <ul>
+                    <li>Conduct outstation stock audits involving physical inventory verification and reconciliation.</li>
+                    <li>Independently manage complete books of accounts for multiple clients, including on-site assignments.</li>
+                    <li>Independently handle statutory filings including GSTR-1, GSTR-3B, and assist in annual GSTR-9 filing.</li>
+                    <li>Assist in tax audits and prepare balance sheets as part of account finalization.</li>
+                    <li>Execute Bank Reconciliation Statements (BRS) and monthly vendor/ledger reconciliations.</li>
+                    <li>Ensure timely computation, tax deposits, and accurate TDS return filing.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="reveal-on-scroll">
+            <div class="glass-card">
+                <div class="card-header">
+                    <h3 class="card-title">Accounts Assistant <br><span style="font-size: 1rem; color: #fff;">Dipanshu Aggarwal & Associates</span></h3>
+                    <span class="card-date">Apr 2023 – Oct 2023</span>
+                </div>
+                <ul>
+                    <li>Managed daily accounting entries, ledger maintenance, and audit-ready documentation.</li>
+                    <li>Prepared financial data for GST and Income Tax assessments for senior partners.</li>
+                    <li>Assisted in internal audit processes and verified financial records for accuracy.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education -->
+    <section class="section">
+        <h2 class="section-title reveal-on-scroll">Education</h2>
+        
+        <div class="reveal-on-scroll">
+            <div class="glass-card animated-float">
+                <div class="card-header">
+                    <h3 class="card-title">B.A. LL.B. (5-Year Integrated)</h3>
+                    <span class="card-date">7th Semester</span>
+                </div>
+                <p style="color: #00ffcc;">Chaudhary Charan Singh University (CCSU)</p>
+            </div>
+        </div>
+
+        <div class="reveal-on-scroll">
+            <div class="glass-card animated-float" style="animation-delay: 0.3s;">
+                <div class="card-header">
+                    <h3 class="card-title">Class X & XII</h3>
+                    <span class="card-date">Completed</span>
+                </div>
+                <p style="color: #00ffcc;">Central Board of Secondary Education (CBSE)</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Services -->
+    <section class="section">
+        <h2 class="section-title reveal-on-scroll">Connect & Services</h2>
+        
+        <div class="contact-grid reveal-on-scroll">
+            
+            <!-- Quick Connect Buttons -->
+            <div class="glass-card animated-float">
+                <h3 style="color: #d4af37; margin-bottom: 20px; font-size: 1.5rem;">Quick Connect</h3>
+                <p style="margin-bottom: 20px; color: #e2e8f0;">Ready to hire or need accounting services? Reach out directly.</p>
+                <a href="https://wa.me/917982366079" target="_blank" class="contact-button btn-whatsapp">💬 Message on WhatsApp</a>
+                <a href="tel:+917982366079" class="contact-button btn-call">📞 Call +91 7982366079</a>
+            </div>
+
+            <!-- Service Inquiry Form -->
+            <div class="glass-card animated-glow">
+                <h3 style="color: #d4af37; margin-bottom: 20px; font-size: 1.5rem;">Request a Service</h3>
+                <div class="form-group">
+                    <input type="text" id="clientName" class="form-control" placeholder="Your Name or Company" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" id="clientPhone" class="form-control" placeholder="Your Contact Number" required>
+                </div>
+                <div class="form-group">
+                    <textarea id="clientMessage" class="form-control" rows="3" placeholder="What service are you looking for? (e.g. Audit, GST, Bookkeeping)" required></textarea>
+                </div>
+                <button onclick="sendEmail()" class="submit-btn">Send Inquiry via Email ✉️</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- JavaScript for Animations and Form -->
+    <script>
+        // Intersection Observer for Scroll Reveal
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Email Draft Logic
+        function sendEmail() {
+            const name = document.getElementById('clientName').value;
+            const phone = document.getElementById('clientPhone').value;
+            const message = document.getElementById('clientMessage').value;
+
+            if(!name || !phone || !message) {
+                alert("Please fill in all fields before sending the inquiry.");
+                return;
+            }
+
+            const subject = encodeURIComponent(`Service Inquiry from ${name}`);
+            const body = encodeURIComponent(`Hello Ayush,\n\nI am reaching out regarding your accounting/audit services.\n\nName/Company: ${name}\nContact Number: ${phone}\n\nMessage/Requirement:\n${message}\n\nPlease get back to me. Thanks!`);
+            
+            // This will open the user's default email app (Gmail, Outlook, etc.)
+            window.location.href = `mailto:ayush.soni7446@gmail.com?subject=${subject}&body=${body}`;
+        }
+    </script>
+</body>
+</html>
